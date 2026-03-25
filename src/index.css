@@ -1,0 +1,230 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222 60% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 60% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 60% 15%;
+    --primary: 224 79% 22%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 45 100% 51%;
+    --secondary-foreground: 224 79% 22%;
+    --muted: 220 25% 95%;
+    --muted-foreground: 220 15% 45%;
+    --accent: 45 100% 64%;
+    --accent-foreground: 224 79% 22%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 20% 88%;
+    --input: 220 20% 88%;
+    --ring: 224 79% 22%;
+    --radius: 0.75rem;
+
+    --ieee-blue-dark: 224 79% 22%;
+    --ieee-blue: 224 65% 33%;
+    --ieee-blue-light: 224 60% 55%;
+    --ieee-yellow: 45 100% 51%;
+    --ieee-yellow-light: 45 100% 64%;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Poppins', sans-serif;
+  }
+}
+
+/* Animated gradient text */
+.animated-gradient-text {
+  position: relative;
+  margin: 0 auto;
+  display: flex;
+  max-width: fit-content;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1.25rem;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+  transition: box-shadow 0.5s ease-out;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.animated-gradient-text.with-border {
+  padding: 0.35rem 0.75rem;
+}
+
+.gradient-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.gradient-overlay::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: inherit;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #060010;
+  z-index: -1;
+}
+
+.text-content {
+  display: inline-block;
+  position: relative;
+  z-index: 2;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Text gradient animation */
+.text-gradient {
+  display: inline-block;
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(90deg, hsl(45, 100%, 51%), hsl(0, 0%, 100%), hsl(45, 100%, 64%));
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: gradient-shift 3s ease-in-out infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+}
+
+/* Marquee */
+.marquee-container {
+  overflow: hidden;
+  white-space: nowrap;
+  background: #0A2666;
+  color: hsl(45, 100%, 51%);
+  padding: 0.5rem 0;
+}
+
+.marquee-text {
+  display: inline-block;
+  animation: marquee 20s linear infinite;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(100vw); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Card hover */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px -12px hsl(224 79% 22% / 0.25);
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Light rays canvas */
+.lightrays-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.lightrays-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Glow effect for hero text */
+.hero-glow {
+  text-shadow: 0 0 30px hsl(45 100% 51% / 0.3), 0 0 60px hsl(45 100% 51% / 0.15);
+}
+
+/* Nav link hover */
+/* Nav link hover - modern white navbar */
+.nav-link-modern {
+  position: relative;
+}
+.nav-link-modern::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: hsl(var(--primary));
+  transition: width 0.25s ease, left 0.25s ease;
+  border-radius: 1px;
+}
+.nav-link-modern:hover::after {
+  width: 80%;
+  left: 10%;
+}
+
+/* Committee card */
+.committee-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.committee-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 16px 32px -8px hsl(224 79% 22% / 0.2);
+}
+
+/* Fade in animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
